@@ -18,6 +18,16 @@ class Student:
         if "@" in email and "." in email:
             self.__email = email
             print("Email updated successfully.")
-
         else:
             print("Invalid email.")
+
+    def enroll_course(self, course_code):
+        if course_code not in self.courses:
+            self.courses.append(course_code)
+
+    def display_info(self):
+        print(f"\nStudent ID: {self.student_id}")
+        print(f"Name: {self.name}")
+        print(f"Email: {self.__email}")
+        print("Courses:", ", ".join(self.courses) if self.courses else "None")
+
