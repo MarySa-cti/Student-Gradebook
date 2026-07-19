@@ -47,3 +47,72 @@ class Gradebook:
         del self.students[student_id]
 
         print("Student deleted successfully.")
+
+# Course methods
+
+    def add_course(self, course):
+        if course.course_code in self.courses:
+            print("Course already exists.")
+        else:
+            self.courses[course.course_code] = course
+            print("Course added successfully.")
+
+    def enroll_student(self, student_id, course_code):
+
+        if student_id not in self.students:
+            print("Student not found.")
+            return
+
+        if course_code not in self.courses:
+            print("Course not found.")
+            return
+
+        self.students[student_id].enroll_course(course_code)
+        self.courses[course_code].add_student(student_id)
+
+        print("Student enrolled successfully.")
+
+    # Assessment methods
+
+    def add_assessment(self, course_code, assessment):
+
+        if course_code not in self.courses:
+            print("Course not found.")
+            return
+
+        self.courses[course_code].add_assessment(assessment)
+
+        print("Assessment added successfully.")
+
+    # Grade methods
+
+
+    def record_grade(self, student_id, course_code, assessment_title, score):
+
+        if student_id not in self.students:
+            print("Student not found.")
+            return
+
+        if course_code not in self.courses:
+            print("Course not found.")
+            return
+
+        assessment = self.courses[course_code].find_assessment(assessment_title)
+
+        if assessment is None:
+            print("Assessment not found.")
+            return
+
+        if score < 0 or score > assessment.max_score:
+            print("Invalid score.")
+            return
+
+        if student_id not in self.grades:
+            self.grades[student_id] = {}
+
+        if course_code not in self.grades[student_id]:
+            self.grades[student_id][course_code] = {}
+
+        self.grades[student_id][course_code][assessment_title] = score
+
+        print("Grade recorded successfully.")
