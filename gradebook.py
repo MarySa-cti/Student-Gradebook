@@ -151,6 +151,33 @@ class Gradebook:
         else:
             return "Failed"
 
+    def get_letter_grade(self, average):
+
+        if average >= 90:
+            return "A"
+        elif average >= 80:
+            return "B"
+        elif average >= 70:
+            return "C"
+        elif average >= 60:
+            return "D"
+        else:
+            return "F"
+
+    def teacher_comment(self, average):
+
+        if average >= 90:
+            return "Excellent work!"
+        elif average >= 70:
+            return "Good job!"
+        elif average >= 55:
+            return "Keep practicing."
+        else:
+            return "Needs improvement."
+
+
+
+
     def show_report(self, student_id):
 
         if student_id not in self.students:
@@ -186,9 +213,11 @@ class Gradebook:
                         f"{score}/{assessment.max_score} "
                         f"({percentage:.2f}%)"
                     )
-                    average = self.calculate_average(student_id, course_code)
+            average = self.calculate_average(student_id, course_code)
 
-                    print(f"Average: {average:.2f}%")
-                    print("Result:", self.get_result(average))
+            print(f"Average: {average:.2f}%")
+            print("Letter Grade:", self.get_letter_grade(average))
+            print("Result:", self.get_result(average))
+            print("Teacher Comment:", self.teacher_comment(average))
 
 
